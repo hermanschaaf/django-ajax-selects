@@ -74,7 +74,7 @@ class AutoCompleteSelectWidget(forms.widgets.TextInput):
 
         got = data.get(name, None)
         if got:
-            return got # changed from long(got) to accommodate mongodb
+            return str(got) # changed from long(got) to accommodate mongodb
         else:
             return None
 
@@ -187,7 +187,7 @@ class AutoCompleteSelectMultipleWidget(forms.widgets.SelectMultiple):
 
     def value_from_datadict(self, data, files, name):
         # eg. u'members': [u'|229|4688|190|']
-        return [long(val) for val in data.get(name,'').split('|') if val]
+        return [str(val) for val in data.get(name,'').split('|') if val]
 
     def id_for_label(self, id_):
         return '%s_text' % id_
