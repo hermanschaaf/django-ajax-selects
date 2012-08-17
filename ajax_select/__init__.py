@@ -47,7 +47,10 @@ class LookupChannel(object):
         # which is not guaranteed to be the same order they were in when you last edited
         # see OrdredManyToMany.md
         ids = [str(id) for id in ids]
-        things = self.model.objects.in_bulk(ids)
+        if hasattr(self.model, 'objects'):
+            things = self.model.objects.in_bulk(ids)
+        else:
+            things = self.model.in_bulk(ids) # removed models reference for mongodb
         return [things[aid] for aid in ids if things.has_key(aid)]
 
     def can_add(self,user,argmodel):
