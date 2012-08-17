@@ -74,7 +74,7 @@ class AutoCompleteSelectWidget(forms.widgets.TextInput):
 
         got = data.get(name, None)
         if got:
-            return long(got)
+            return got # changed from long(got) to accommodate mongodb
         else:
             return None
 
