@@ -46,7 +46,7 @@ class LookupChannel(object):
         # this will be however the related objects Manager returns them
         # which is not guaranteed to be the same order they were in when you last edited
         # see OrdredManyToMany.md
-        if hasattr(self.model, 'objects'):
+        if not hasattr(self.model, 'in_bulk'):
             things = self.model.objects.in_bulk([long(id) for id in ids])
         else:
             things = self.model.in_bulk(ids) # removed models reference for mongodb
